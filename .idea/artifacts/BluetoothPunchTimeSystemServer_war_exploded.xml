@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="BluetoothPunchTimeSystemServer_war_exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/BluetoothPunchTimeSystemServer_war_exploded</output-path>
+    <root id="archive" name="BluetoothPunchTimeSystemServer_war_exploded.war">
+      <element id="javaee-facet-resources" facet="BluetoothPunchTimeSystemServer/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BluetoothPunchTimeSystemServer" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/lib/gson-2.8.5.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
