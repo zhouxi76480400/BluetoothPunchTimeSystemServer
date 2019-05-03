@@ -1,8 +1,12 @@
 package org.xi.myserver.servlets;
 
 import com.google.gson.Gson;
+import org.xi.myserver.db.CreateSqlStatementClass;
+import org.xi.myserver.db.SqlUtiClass;
+import org.xi.myserver.pojo.SQLReturnDataClass;
 import org.xi.myserver.pojo.StudentInformationObject;
 import org.xi.myserver.utils.CharsetUtil;
+import org.xi.myserver.utils.SQLStatusCODEList;
 import org.xi.myserver.utils.StatusCodeList;
 
 import javax.servlet.ServletException;
@@ -41,8 +45,59 @@ public class AddUserServlet extends MyServlet {
             if(json != null && json.length() != 0) {
                 Gson gson = new Gson();
                 object = gson.fromJson(json, StudentInformationObject.class);
+                boolean isMACOK = checkMACAddressLengthOK(object.mac_address);
+                boolean isSMOK = checkStrIsLongerThan0(object.student_number);
+                boolean isLNOK = checkStrIsLongerThan0(object.last_name);
+                boolean isFNOK = checkStrIsLongerThan0(object.first_name);
+                if(isMACOK && isSMOK && isLNOK && isFNOK) {
+                    if(isEdit) {
+                        long id = object.id;
+                        if(id > 0) {
 
-                System.out.println("test");
+                        }else {
+
+                        }
+                    }else {
+                        // check mac is uq
+                        SQLReturnDataClass isMACUQ =
+                                SqlUtiClass.checkUQ(CreateSqlStatementClass.user_list,
+                                        "mac_address",object.mac_address);
+                        if(isMACUQ.DB_ERR_CODE == SQLStatusCODEList.DB_OK) {
+                            if(isMACUQ.OPT_ERR_CODE == SQLStatusCODEList.OPT_UNIQUE_STATUS_NOT_EXIST) {
+                                // check student number is uq
+                                SQLReturnDataClass isSNUQ =
+                                        SqlUtiClass.checkUQ(CreateSqlStatementClass.user_list,
+                                                "student_number",object.student_number);
+                                if(isSNUQ.DB_ERR_CODE == SQLStatusCODEList.DB_OK) {
+                                    if(isSNUQ.OPT_ERR_CODE == SQLStatusCODEList.OPT_UNIQUE_STATUS_NOT_EXIST) {
+                                        // write
+                                        SQLReturnDataClass isSuccessful = SqlUtiClass.writeNewUserToDB(object);
+                                        if(isSuccessful.DB_ERR_CODE == SQLStatusCODEList.DB_OK) {
+                                            map.put("s", String.valueOf(StatusCodeList.
+                                                    STATUS_CODE_OK));
+                                            int id =  ((Integer)isSuccessful.payload).intValue();
+                                            map.put("id",String.valueOf(id));
+                                        }else {
+                                            map.put("s", String.valueOf(StatusCodeList.
+                                                      STATUS_CODE_USER_DATA_NOT_WRITE_SUCCESS));
+                                        }
+                                    }else {
+                                        map.put("s", String.valueOf(StatusCodeList.STATUS_CODE_STUDENT_NUMBER_EXIST));
+                                    }
+                                }else {
+                                    map.put("s", String.valueOf(StatusCodeList.
+                                            STATUS_CODE_USER_DATA_NOT_WRITE_SUCCESS));
+                                }
+                            }else {
+                                map.put("s", String.valueOf(StatusCodeList.STATUS_CODE_MAC_ADDRESS_EXIST));
+                            }
+                        }else {
+                            map.put("s", String.valueOf(StatusCodeList.STATUS_CODE_USER_DATA_NOT_WRITE_SUCCESS));
+                        }
+                    }
+                }else {
+                    map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_JSON_PARAMETER_NOT_EQUALS));
+                }
             }else {
                 map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_JSON_CONVERT_FAILED));
             }
@@ -54,5 +109,22 @@ public class AddUserServlet extends MyServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkMACAddressLengthOK(String mac) {
+        int length = CharsetUtil.checkStringLength(mac);
+        boolean isOK = false;
+        if(length == 12) {
+            isOK = true;
+        }
+        return isOK;
+    }
+
+    private boolean checkStrIsLongerThan0(String str) {
+        boolean isOK = false;
+        if(CharsetUtil.checkStringLength(str) > 0){
+            isOK = true;
+        }
+        return isOK;
     }
 }

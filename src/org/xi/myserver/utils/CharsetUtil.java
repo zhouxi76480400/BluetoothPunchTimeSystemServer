@@ -14,4 +14,12 @@ public class CharsetUtil {
         }
         return utf_8;
     }
+
+    public static int checkStringLength(String str) {
+        int length = 0;
+        if(str != null) {
+            length = str.length();
+        }
+        return length;
+    }
 }
