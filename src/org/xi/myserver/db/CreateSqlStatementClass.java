@@ -57,4 +57,18 @@ public class CreateSqlStatementClass {
         return sql;
     }
 
+    private static String query_user_id_exists =
+            "SELECT COUNT(*) FROM %s.%s WHERE id = ?;";
+
+    public static String createQueryUserIdCountSQL() {
+        return String.format(query_user_id_exists,db_name,user_list);
+    }
+
+    private static String delete_user_with_id =
+            "DELETE FROM `%s`.`%s` WHERE (`id` = ?);";
+
+    public static String createQueryUserIdSQL(int id) {
+        return String.format(delete_user_with_id,db_name,user_list,id);
+    }
+
 }

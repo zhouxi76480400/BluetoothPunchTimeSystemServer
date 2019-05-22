@@ -18,4 +18,6 @@ public class StatusCodeList implements Serializable {
 
     public static final int STATUS_CODE_STUDENT_NUMBER_EXIST = 6;
 
+    public static final int STATUS_CODE_SQL_ID_NOT_EXIST = 7;
+
 }

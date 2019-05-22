@@ -24,6 +24,16 @@
         <url-pattern>/addusr</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <servlet-class>org.xi.myserver.servlets.DeleteUserServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteUserServlet</servlet-name>
+        <url-pattern>/delusr</url-pattern>
+    </servlet-mapping>
+
     <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/punchtimesystem</res-ref-name>

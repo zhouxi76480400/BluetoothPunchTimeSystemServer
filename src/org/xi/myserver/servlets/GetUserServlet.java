@@ -39,7 +39,7 @@ public class GetUserServlet extends MyServlet {
         String l_str = request.getParameter("l");
         String c_str = request.getParameter("c");
         int l = 0;
-        int c = 0;
+        int c;
         if(c_str == null) {
             c = DEFAULT_C;
         }else {
@@ -71,6 +71,7 @@ public class GetUserServlet extends MyServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+//        get_fake_data();
     }
 
     private void get_fake_data() {

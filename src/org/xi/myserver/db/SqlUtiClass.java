@@ -4,6 +4,7 @@ import org.xi.myserver.pojo.DataTableObject;
 import org.xi.myserver.pojo.SQLReturnDataClass;
 import org.xi.myserver.pojo.StudentInformationObject;
 import org.xi.myserver.utils.SQLStatusCODEList;
+import sun.rmi.runtime.Log;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -293,10 +294,15 @@ public class SqlUtiClass {
                             e.printStackTrace();
                         }
                         if(id > 0) {
-                            sqlReturnDataClass.payload = new Integer(id);
+                            sqlReturnDataClass.payload = id;
                             sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OK;
                         }else {
                             sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OTHER_EXCEPTION;
+                        }
+                        try {
+                            resultSet.close();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -310,6 +316,128 @@ public class SqlUtiClass {
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+            }
+        }
+        return sqlReturnDataClass;
+    }
+
+    public static SQLReturnDataClass getCountWithId(int id) {
+        SQLReturnDataClass sqlReturnDataClass = new SQLReturnDataClass();
+        DataSource dataSource = getDataSource();
+        if(dataSource != null) {
+            Connection connection = null;
+            try {
+                connection = dataSource.getConnection();
+            } catch (SQLException e) {
+                sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_GET_CONNECTION;
+                e.printStackTrace();
+            }
+            if(connection != null) {
+                PreparedStatement preparedStatement = null;
+                try {
+                    preparedStatement = connection.
+                            prepareStatement(CreateSqlStatementClass.createQueryUserIdCountSQL());
+                    preparedStatement.setInt(1,id);
+                } catch (SQLException e) {
+                    sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_CREATE_PREPARED_STATEMENT;
+                    e.printStackTrace();
+                }
+                if(preparedStatement != null) {
+                    boolean isResult = false;
+                    try {
+                        isResult = preparedStatement.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    if(isResult) {
+                        ResultSet resultSet = null;
+                        try {
+                            resultSet = preparedStatement.getResultSet();
+                        } catch (SQLException e) {
+                            sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_GET_RESULT_SET;
+                            e.printStackTrace();
+                        }
+                        if(resultSet != null) {
+                            int count = 0;
+                            try {
+                                while (resultSet.next()) {
+                                    count = resultSet.getInt("COUNT(*)");
+                                }
+                                resultSet.close();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                            boolean isExist = false;
+                            if(count >= 1) {
+                                isExist = true;
+                            }else {
+                                isExist = false;
+                            }
+                            sqlReturnDataClass.payload = isExist;
+                            sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OK;
+                            try {
+                                resultSet.close();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    try {
+                        preparedStatement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sqlReturnDataClass;
+    }
+
+    public static SQLReturnDataClass deleteUserWithId(int id) {
+        SQLReturnDataClass sqlReturnDataClass = new SQLReturnDataClass();
+        DataSource dataSource = getDataSource();
+        if(dataSource != null) {
+            Connection connection = null;
+            try {
+                connection = dataSource.getConnection();
+            } catch (SQLException e) {
+                sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_GET_CONNECTION;
+                e.printStackTrace();
+            }
+            if(connection != null) {
+                PreparedStatement preparedStatement = null;
+                try {
+                    preparedStatement = connection.prepareStatement(CreateSqlStatementClass.createQueryUserIdSQL(id));
+                    preparedStatement.setInt(1,id);
+                } catch (SQLException e) {
+                    sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_CREATE_PREPARED_STATEMENT;
+                    e.printStackTrace();
+                }
+                if(preparedStatement != null) {
+                    int update = 0;
+                    try {
+                        update = preparedStatement.executeUpdate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    sqlReturnDataClass.payload = update;
+                    sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OK;
+                    try {
+                        preparedStatement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return sqlReturnDataClass;
