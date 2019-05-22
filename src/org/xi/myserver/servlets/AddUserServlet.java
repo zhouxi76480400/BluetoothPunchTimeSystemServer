@@ -36,7 +36,7 @@ public class AddUserServlet extends MyServlet {
         if(parameterMap.size() == 2) {
             boolean isEdit = false;
             try {
-                isEdit = Boolean.getBoolean(CharsetUtil.getUTF_8String(request.getParameter("e")));
+                isEdit = Boolean.valueOf(CharsetUtil.getUTF_8String(request.getParameter("e")));
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,9 +53,10 @@ public class AddUserServlet extends MyServlet {
                     if(isEdit) {
                         long id = object.id;
                         if(id > 0) {
-
+                            modifyData(map,response,object);
                         }else {
-
+                            map.put("s", String.valueOf(StatusCodeList.
+                                    STATUS_CODE_SQL_ID_NOT_EXIST));
                         }
                     }else {
                         // check mac is uq
@@ -108,6 +109,27 @@ public class AddUserServlet extends MyServlet {
             response.getWriter().print(generateResponseString(map));
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Modify Exists Data
+     * @param response
+     * @param object
+     */
+    private void modifyData(Map<String, String> map, HttpServletResponse response, StudentInformationObject object) {
+        if(object != null) {
+            SQLReturnDataClass sqlReturnDataClass = SqlUtiClass.modifyUserToDB(object);
+            if(sqlReturnDataClass.DB_ERR_CODE == SQLStatusCODEList.DB_OK) {
+                if(sqlReturnDataClass.OPT_ERR_CODE == SQLStatusCODEList.DB_OK) {
+                    map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_OK));
+                }else {
+                    map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_SQL_ID_NOT_EXIST));
+                }
+            }else {
+                map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_USER_DATA_NOT_WRITE_SUCCESS));
+            }
+
         }
     }
 

@@ -20,6 +20,8 @@ public class SQLStatusCODEList implements Serializable {
 
     public static int OPT_UNIQUE_STATUS_NOT_EXIST = 0;
 
+    public static int OPT_DB_ID_NOT_EXIST = -2;
+
 
 
 }

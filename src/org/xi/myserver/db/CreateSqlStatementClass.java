@@ -67,8 +67,16 @@ public class CreateSqlStatementClass {
     private static String delete_user_with_id =
             "DELETE FROM `%s`.`%s` WHERE (`id` = ?);";
 
-    public static String createQueryUserIdSQL(int id) {
-        return String.format(delete_user_with_id,db_name,user_list,id);
+    public static String createQueryUserIdSQL() {
+        return String.format(delete_user_with_id,db_name,user_list);
+    }
+
+    private static String modify_user_with_id =
+            "UPDATE `%s`.`%s` SET `mac_address` = ?, `student_number` = ?, `last_name` = ?, `first_name` = ? WHERE (`id` = ?);";
+
+
+    public static String createModifyUserWithIdSQL() {
+        return String.format(modify_user_with_id,db_name,user_list);
     }
 
 }
