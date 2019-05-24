@@ -8,7 +8,6 @@ import org.xi.myserver.utils.SQLStatusCODEList;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sound.midi.SysexMessage;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,6 +25,64 @@ public class SqlUtiClass {
             e.printStackTrace();
         }
         return dataSource;
+    }
+
+    public static SQLReturnDataClass removeUsers(List<Integer> list) {
+        SQLReturnDataClass sqlReturnDataClass = new SQLReturnDataClass();
+        DataSource dataSource = getDataSource();
+        if(dataSource != null) {
+            Connection connection = getConnection(sqlReturnDataClass,dataSource);
+            if(connection != null) {
+                try {
+                    connection.setAutoCommit(false);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                PreparedStatement preparedStatement = getPreparedStatement(sqlReturnDataClass,connection,
+                        CreateSqlStatementClass.createDeleteUserWithIdSQL(list.size()));
+                if(preparedStatement != null) {
+                    for(int i = 0 ; i < list.size() ; i++) {
+                        int number = list.get(i);
+                        System.out.println("need_to_delete:"+number);
+                        try {
+                            preparedStatement.setInt(1,number);
+                            preparedStatement.addBatch();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    int removed_list[] = {};
+                    try {
+                        removed_list = preparedStatement.executeBatch();
+                        connection.commit();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    boolean isOK = true;
+                    for (int i = 0 ; i < removed_list.length ; i ++ ) {
+                        if(removed_list[i] != -1) {
+                            isOK = false;
+                        }
+                    }
+                    if(isOK) {
+                        sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OK;
+                    }else {
+                        sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_EXECUTE_SQL;
+                    }
+                    try {
+                        preparedStatement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return sqlReturnDataClass;
     }
 
     public static SQLReturnDataClass getUserList(int l,int c) {
@@ -156,8 +213,8 @@ public class SqlUtiClass {
                     try {
                         preparedStatement.setString(1,mac);
                         preparedStatement.setString(2,sn);
-                        preparedStatement.setString(3,fn);
-                        preparedStatement.setString(4,ln);
+                        preparedStatement.setString(3,ln);
+                        preparedStatement.setString(4,fn);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
