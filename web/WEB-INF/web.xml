@@ -33,6 +33,26 @@
         <servlet-name>DeleteUserServlet</servlet-name>
         <url-pattern>/removeusrs</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>GetAllSessionsServlet</servlet-name>
+        <servlet-class>org.xi.myserver.servlets.GetAllSessionsServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>GetAllSessionsServlet</servlet-name>
+        <url-pattern>/as</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateASessionServlet</servlet-name>
+        <servlet-class>org.xi.myserver.servlets.CreateASessionServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>CreateASessionServlet</servlet-name>
+        <url-pattern>/cs</url-pattern>
+    </servlet-mapping>
 
     <resource-ref>
         <description>DB Connection</description>
