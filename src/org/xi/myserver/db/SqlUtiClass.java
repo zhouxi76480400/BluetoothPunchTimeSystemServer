@@ -60,7 +60,9 @@ public class SqlUtiClass {
                     }
                     boolean isOK = true;
                     for (int i = 0 ; i < removed_list.length ; i ++ ) {
-                        if(removed_list[i] != -1) {
+                        int result = removed_list[i];
+                        System.out.println(result);
+                        if(result != 1) {
                             isOK = false;
                         }
                     }
