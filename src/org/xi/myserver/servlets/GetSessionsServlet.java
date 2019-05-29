@@ -85,7 +85,7 @@ public class GetSessionsServlet extends MyServlet {
             int for_count = max_size < all_names.size() ? max_size : all_names.size();
             all.addAll(readData(base_path,all_names,for_count,0));
         }else {
-
+            // TODO
         }
         return all;
     }
@@ -128,7 +128,7 @@ public class GetSessionsServlet extends MyServlet {
                 SessionDataPOJO sessionDataPOJO = gson.fromJson(file_string,SessionDataPOJO.class);
                 List<String> mac_addresses = sessionDataPOJO.mac_addresses;
                 // query data base to get full information
-
+                // TODO
 
 
 
