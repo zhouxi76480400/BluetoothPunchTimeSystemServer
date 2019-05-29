@@ -28,6 +28,7 @@ public class MyServlet extends HttpServlet {
 
     private void setResponse(HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_OK);
+        response.addHeader("Access-Control-Allow-Origin","*");
     }
 
     private void setRequest(HttpServletRequest request) {

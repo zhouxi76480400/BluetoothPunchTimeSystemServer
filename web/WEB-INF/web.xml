@@ -54,6 +54,27 @@
         <url-pattern>/cs</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>UpdateSessionDataServlet</servlet-name>
+        <servlet-class>org.xi.myserver.servlets.UpdateSessionDataServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateSessionDataServlet</servlet-name>
+        <url-pattern>/us</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetSessionsServlet</servlet-name>
+        <servlet-class>org.xi.myserver.servlets.GetSessionsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetSessionsServlet</servlet-name>
+        <url-pattern>/gs</url-pattern>
+    </servlet-mapping>
+
+
     <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/punchtimesystem</res-ref-name>
