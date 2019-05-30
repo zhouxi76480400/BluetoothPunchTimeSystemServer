@@ -84,5 +84,22 @@ public class CreateSqlStatementClass {
         return all_str;
     }
 
+    private static String query_users_with_mac =
+            "SELECT * FROM %s.%s WHERE mac_address IN (%s)";
+
+    public static String createQueryUsersWithMACSQL(int users_count) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i = 0 ; i < users_count ; i ++) {
+            stringBuilder.append("?");
+            if(i != users_count - 1) {
+                stringBuilder.append(", ");
+            }
+        }
+        String sql = String.format(query_users_with_mac,db_name,user_list,stringBuilder.toString());
+        System.out.println(sql);
+
+        return sql;
+    }
+
 
 }

@@ -22,4 +22,6 @@ public class StatusCodeList implements Serializable {
 
     public static final int STATUS_CODE_SQL_REMOVE_USER_FAILED = 8;
 
+    public static final int STATUS_CODE_SESSION_ID_NOT_EXISTS = 9;
+
 }

@@ -2,19 +2,15 @@ package org.xi.myserver.servlets;
 
 import com.google.gson.Gson;
 import org.xi.myserver.pojo.CreateSessionPOJO;
-import org.xi.myserver.pojo.GetSessionReturnDataPOJO;
 import org.xi.myserver.pojo.GetSessionsServletReturnPOJO;
-import org.xi.myserver.pojo.SessionDataPOJO;
 import org.xi.myserver.utils.FileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -86,6 +82,10 @@ public class GetSessionsServlet extends MyServlet {
             all.addAll(readData(base_path,all_names,for_count,0));
         }else {
             // TODO
+
+
+
+
         }
         return all;
     }
@@ -104,48 +104,6 @@ public class GetSessionsServlet extends MyServlet {
             datas.add(createSessionPOJO);
         }
         return datas;
-    }
-
-    private List<GetSessionReturnDataPOJO> readMacDataFromPath(File path) {
-        List<GetSessionReturnDataPOJO> return_data = new ArrayList<>();
-        Gson gson = new Gson();
-        if(path.exists() && path.isDirectory()) {
-            String [] files = path.list(new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                    return name.endsWith(".json");
-                }
-            });
-            List<Integer> files_integer = new ArrayList<>();
-            for(String string : files) {
-                String file_name_without_extension = string.replace(".json","");
-                files_integer.add(Integer.valueOf(file_name_without_extension));
-            }
-            Collections.sort(files_integer);
-            for (int i = 0 ; i < files_integer.size() ; i++) {
-                File full_file_path = new File(path,String.format("%d.json",files_integer.get(i)));
-                String file_string = FileUtil.readStringFromFile(full_file_path);
-                SessionDataPOJO sessionDataPOJO = gson.fromJson(file_string,SessionDataPOJO.class);
-                List<String> mac_addresses = sessionDataPOJO.mac_addresses;
-                // query data base to get full information
-                // TODO
-
-
-
-
-
-
-
-
-
-                System.out.println(sessionDataPOJO.mac_addresses);
-
-
-
-            }
-
-        }
-        return return_data;
     }
 
 }

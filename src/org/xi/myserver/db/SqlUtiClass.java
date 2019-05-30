@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class SqlUtiClass {
 
@@ -103,22 +104,7 @@ public class SqlUtiClass {
                         ResultSet resultSet = getResultSetFromSQL(sqlReturnDataClass,preparedStatement);
                         if(resultSet != null) {
                             List<StudentInformationObject> studentInformationObjectList = new ArrayList<>();
-                            try {
-                                while (resultSet.next()) {
-                                    StudentInformationObject studentInformationObject = new StudentInformationObject();
-                                    studentInformationObject.id = (long) resultSet.getInt("id");
-                                    studentInformationObject.mac_address =
-                                            resultSet.getString("mac_address");
-                                    studentInformationObject.student_number =
-                                            resultSet.getString("student_number");
-                                    studentInformationObject.first_name = resultSet.getString("first_name");
-                                    studentInformationObject.last_name = resultSet.getString("last_name");
-                                    studentInformationObjectList.add(studentInformationObject);
-                                }
-                                resultSet.close();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
+                            addStudentInformationObjectToList(resultSet,studentInformationObjectList);
                             sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OK;
                             sqlReturnDataClass.payload = studentInformationObjectList;
                         }
@@ -538,48 +524,33 @@ public class SqlUtiClass {
         return connection;
     }
 
-
-    public static SQLReturnDataClass getDataTableList() {
+    public static SQLReturnDataClass getUserInformationListWithMacAddress(Set<String> addresses) {
         SQLReturnDataClass sqlReturnDataClass = new SQLReturnDataClass();
+        sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OTHER_EXCEPTION;
         DataSource dataSource = getDataSource();
         if(dataSource != null) {
-            Connection connection = null;
-            try {
-                connection = dataSource.getConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            Connection connection = getConnection(sqlReturnDataClass, dataSource);
             if(connection != null) {
                 PreparedStatement preparedStatement = getPreparedStatement(
-                        sqlReturnDataClass,connection,CreateSqlStatementClass.createReadAllTablesSQL());
+                        sqlReturnDataClass,connection,
+                        CreateSqlStatementClass.createQueryUsersWithMACSQL(addresses.size()));
                 if(preparedStatement != null) {
-                    boolean isResultSet = executeSQL(sqlReturnDataClass,preparedStatement);
-                    if(isResultSet) {
-                        ResultSet resultSet = null;
+                    Object[] addresses_array = addresses.toArray();
+                    for (int i = 0 ; i < addresses.size() ; i ++) {
                         try {
-                            resultSet = preparedStatement.getResultSet();
+                            preparedStatement.setString(i+1,addresses_array[i].toString());
                         } catch (SQLException e) {
-                            sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_GET_RESULT_SET;
                             e.printStackTrace();
                         }
+                    }
+                    boolean isResult = executeSQL(sqlReturnDataClass,preparedStatement);
+                    if(isResult) {
+                        ResultSet resultSet = getResultSetFromSQL(sqlReturnDataClass,preparedStatement);
+                        List<StudentInformationObject> studentInformationObjects = new ArrayList<>();
                         if(resultSet != null) {
-                            List<DataTableObject> punchList = new ArrayList<>();
-                            try {
-                                while (resultSet.next()) {
-                                    DataTableObject databaseObject = new DataTableObject();
-                                    String table_name = resultSet.getString("TABLE_NAME");
-                                    databaseObject.table_name = table_name;
-                                    Timestamp timestamp = resultSet.getTimestamp("CREATE_TIME");
-                                    long time = timestamp.getTime();
-                                    databaseObject.create_time = time;
-                                    punchList.add(databaseObject);
-                                }
-                                resultSet.close();
-                            }catch (SQLException e) {
-                                e.printStackTrace();
-                            }
+                            addStudentInformationObjectToList(resultSet,studentInformationObjects);
                             sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OK;
-                            sqlReturnDataClass.payload = punchList;
+                            sqlReturnDataClass.payload = studentInformationObjects;
                         }
                     }
                     try {
@@ -593,11 +564,101 @@ public class SqlUtiClass {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }else {
-                sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_GET_CONNECTION;
             }
         }
         return sqlReturnDataClass;
     }
+
+    private static StudentInformationObject getStudentInformationObjectFromResultSet(ResultSet resultSet) {
+        StudentInformationObject studentInformationObject = new StudentInformationObject();
+        try {
+            studentInformationObject.id = (long) resultSet.getInt("id");
+            studentInformationObject.mac_address =
+                    resultSet.getString("mac_address");
+            studentInformationObject.student_number =
+                    resultSet.getString("student_number");
+            studentInformationObject.first_name = resultSet.getString("first_name");
+            studentInformationObject.last_name = resultSet.getString("last_name");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return studentInformationObject;
+    }
+
+    private static void addStudentInformationObjectToList(ResultSet resultSet,
+                                                          List<StudentInformationObject> studentInformationObjects) {
+        try {
+            while (resultSet.next()) {
+                StudentInformationObject studentInformationObject =
+                        getStudentInformationObjectFromResultSet(resultSet);
+                studentInformationObjects.add(studentInformationObject);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+//    public static SQLReturnDataClass getDataTableList() {
+//        SQLReturnDataClass sqlReturnDataClass = new SQLReturnDataClass();
+//        DataSource dataSource = getDataSource();
+//        if(dataSource != null) {
+//            Connection connection = null;
+//            try {
+//                connection = dataSource.getConnection();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//            if(connection != null) {
+//                PreparedStatement preparedStatement = getPreparedStatement(
+//                        sqlReturnDataClass,connection,CreateSqlStatementClass.createReadAllTablesSQL());
+//                if(preparedStatement != null) {
+//                    boolean isResultSet = executeSQL(sqlReturnDataClass,preparedStatement);
+//                    if(isResultSet) {
+//                        ResultSet resultSet = null;
+//                        try {
+//                            resultSet = preparedStatement.getResultSet();
+//                        } catch (SQLException e) {
+//                            sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_GET_RESULT_SET;
+//                            e.printStackTrace();
+//                        }
+//                        if(resultSet != null) {
+//                            List<DataTableObject> punchList = new ArrayList<>();
+//                            try {
+//                                while (resultSet.next()) {
+//                                    DataTableObject databaseObject = new DataTableObject();
+//                                    String table_name = resultSet.getString("TABLE_NAME");
+//                                    databaseObject.table_name = table_name;
+//                                    Timestamp timestamp = resultSet.getTimestamp("CREATE_TIME");
+//                                    long time = timestamp.getTime();
+//                                    databaseObject.create_time = time;
+//                                    punchList.add(databaseObject);
+//                                }
+//                                resultSet.close();
+//                            }catch (SQLException e) {
+//                                e.printStackTrace();
+//                            }
+//                            sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_OK;
+//                            sqlReturnDataClass.payload = punchList;
+//                        }
+//                    }
+//                    try {
+//                        preparedStatement.close();
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                try {
+//                    connection.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }else {
+//                sqlReturnDataClass.DB_ERR_CODE = SQLStatusCODEList.DB_CANNOT_GET_CONNECTION;
+//            }
+//        }
+//        return sqlReturnDataClass;
+//    }
 
 }
