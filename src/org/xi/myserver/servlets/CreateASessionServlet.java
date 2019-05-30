@@ -65,24 +65,12 @@ public class CreateASessionServlet extends MyServlet {
     }
 
     private int getLastFileCount() {
-        int now = 0;
-        File file = new File(FileUtil.getSessionPath(this),FileUtil.FILE_NAME_LAST_CREATE_COUNT_FILE);
-        if(file.exists()) {
-            String str = FileUtil.readStringFromFile(file);
-            if(str != null) {
-                now = Integer.parseInt(str);
-            }
-        }else {
-            FileUtil.writeStringToFile(String.valueOf(now),file);
-        }
+        int now = FileUtil.getLastFileCount(new File(FileUtil.getSessionPath(this)));
         return now;
     }
 
     private void updateLastFileCount(int now) {
-        File file = new File(FileUtil.getSessionPath(this),FileUtil.FILE_NAME_LAST_CREATE_COUNT_FILE);
-        if(file.exists()) {
-            FileUtil.writeStringToFile(String.valueOf(now),file);
-        }
+        FileUtil.updateLastFileCount(new File(FileUtil.getSessionPath(this)),now);
     }
 
 }

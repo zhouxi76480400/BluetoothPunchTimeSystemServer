@@ -24,4 +24,6 @@ public class StatusCodeList implements Serializable {
 
     public static final int STATUS_CODE_SESSION_ID_NOT_EXISTS = 9;
 
+    public static final int STATUS_CODE_UPDATE_SESSION_DATA_FAILED = 10;
+
 }

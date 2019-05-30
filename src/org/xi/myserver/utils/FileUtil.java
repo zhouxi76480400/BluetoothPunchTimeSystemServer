@@ -2,6 +2,7 @@ package org.xi.myserver.utils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 public class FileUtil {
@@ -63,6 +64,27 @@ public class FileUtil {
             e.printStackTrace();
         }
         return str;
+    }
+
+    public static int getLastFileCount(File path) {
+        int now = 0;
+        File file = new File(path,FileUtil.FILE_NAME_LAST_CREATE_COUNT_FILE);
+        if(file.exists()) {
+            String str = FileUtil.readStringFromFile(file);
+            if(str != null) {
+                now = Integer.parseInt(str);
+            }
+        }else {
+            FileUtil.writeStringToFile(String.valueOf(now),file);
+        }
+        return now;
+    }
+
+    public static void updateLastFileCount(File path, int now) {
+        File file = new File(path,FileUtil.FILE_NAME_LAST_CREATE_COUNT_FILE);
+        if(file.exists()) {
+            FileUtil.writeStringToFile(String.valueOf(now),file);
+        }
     }
 
 }
