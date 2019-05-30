@@ -1,6 +1,7 @@
 package org.xi.myserver.servlets;
 
 import com.google.gson.Gson;
+import org.xi.myserver.pojo.SessionDataPOJO;
 import org.xi.myserver.pojo.UpdateSessionDataPOJO;
 import org.xi.myserver.utils.FileUtil;
 import org.xi.myserver.utils.StatusCodeList;
@@ -36,7 +37,10 @@ public class UpdateSessionDataServlet extends MyServlet {
             if(updateSessionDataPOJO != null) {
                 File path = new File(FileUtil.getSessionPath(this),String.valueOf(updateSessionDataPOJO.sid));
                 if(path.exists() && path.isDirectory()) {
-                    boolean isOK = writeJSONToFile(path,json);
+                    SessionDataPOJO pojo = new SessionDataPOJO();
+                    pojo.create_time = updateSessionDataPOJO.time;
+                    pojo.mac_addresses = updateSessionDataPOJO.mac;
+                    boolean isOK = writeJSONToFile(path,gson.toJson(pojo));
                     if(isOK) {
                         map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_OK));
                     }else {

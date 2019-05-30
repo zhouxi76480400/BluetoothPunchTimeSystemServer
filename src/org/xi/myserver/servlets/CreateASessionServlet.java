@@ -1,6 +1,7 @@
 package org.xi.myserver.servlets;
 
 import com.google.gson.Gson;
+import org.xi.myserver.pojo.CreateASessionServletReturnPOJO;
 import org.xi.myserver.pojo.CreateSessionPOJO;
 import org.xi.myserver.utils.FileUtil;
 import org.xi.myserver.utils.StatusCodeList;
@@ -36,9 +37,16 @@ public class CreateASessionServlet extends MyServlet {
                 createSessionPOJO.create_time = System.currentTimeMillis();
                 createSessionPOJO.sort_id = getLastFileCount() + 1;
                 createSessionPOJO.uuid = UUID.randomUUID().toString();
-                String return_json = createSessionFile(createSessionPOJO);
-                map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_OK));
-                map.put("d",return_json);
+                createSessionFile(createSessionPOJO);
+                CreateASessionServletReturnPOJO createASessionServletReturnPOJO = new CreateASessionServletReturnPOJO();
+                createASessionServletReturnPOJO.d = createSessionPOJO;
+                createASessionServletReturnPOJO.s = String.valueOf(StatusCodeList.STATUS_CODE_OK);
+                try {
+                    httpServletResponse.getWriter().print(new Gson().toJson(createASessionServletReturnPOJO));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return;
             }else {
                 map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_JSON_CONVERT_FAILED));
             }

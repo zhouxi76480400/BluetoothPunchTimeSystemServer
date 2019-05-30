@@ -1,7 +1,6 @@
 package org.xi.myserver.pojo;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class CreateSessionPOJO implements Serializable {
 
