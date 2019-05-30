@@ -1,6 +1,5 @@
 package org.xi.myserver.db;
 
-import org.xi.myserver.pojo.DataTableObject;
 import org.xi.myserver.pojo.SQLReturnDataClass;
 import org.xi.myserver.pojo.StudentInformationObject;
 import org.xi.myserver.utils.SQLStatusCODEList;
@@ -44,7 +43,7 @@ public class SqlUtiClass {
                 if(preparedStatement != null) {
                     for(int i = 0 ; i < list.size() ; i++) {
                         int number = list.get(i);
-                        System.out.println("need_to_delete:"+number);
+//                        System.out.println("need_to_delete:"+number);
                         try {
                             preparedStatement.setInt(1,number);
                             preparedStatement.addBatch();
@@ -62,7 +61,7 @@ public class SqlUtiClass {
                     boolean isOK = true;
                     for (int i = 0 ; i < removed_list.length ; i ++ ) {
                         int result = removed_list[i];
-                        System.out.println(result);
+//                        System.out.println(result);
                         if(result != 1) {
                             isOK = false;
                         }

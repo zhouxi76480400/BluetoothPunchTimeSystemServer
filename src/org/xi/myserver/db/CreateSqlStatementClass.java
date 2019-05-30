@@ -1,6 +1,5 @@
 package org.xi.myserver.db;
 
-import java.awt.*;
 
 public class CreateSqlStatementClass {
 

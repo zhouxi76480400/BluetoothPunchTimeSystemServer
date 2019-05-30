@@ -28,7 +28,11 @@ public class MyServlet extends HttpServlet {
 
     private void setResponse(HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_OK);
-        response.addHeader("Access-Control-Allow-Origin","*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        response.setHeader("Access-Control-Max-Age", "86400");
+        response.setCharacterEncoding("UTF-8");
     }
 
     private void setRequest(HttpServletRequest request) {

@@ -51,7 +51,7 @@ public class GetSessionsServlet extends MyServlet {
         getSessionsServletReturnPOJO.s = "0";
         getSessionsServletReturnPOJO.end_page = isLastPage;
         String json = new Gson().toJson(getSessionsServletReturnPOJO);
-        System.out.println(json);
+//        System.out.println(json);
         try {
             httpServletResponse.setContentType("application/json;charset=UTF-8");
             httpServletResponse.getWriter().print(json);
