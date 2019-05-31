@@ -8,6 +8,7 @@ import org.xi.myserver.utils.FileUtil;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -81,11 +82,10 @@ public class GetSessionsServlet extends MyServlet {
             int for_count = max_size < all_names.size() ? max_size : all_names.size();
             all.addAll(readData(base_path,all_names,for_count,0));
         }else {
-            // TODO
-
-
-
-
+            int repeat_count = all_names.size() - last;
+            if(repeat_count > 0) {
+                all.addAll(readData(base_path,all_names,repeat_count,last));
+            }
         }
         return all;
     }

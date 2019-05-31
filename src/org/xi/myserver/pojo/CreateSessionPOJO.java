@@ -16,6 +16,4 @@ public class CreateSessionPOJO implements Serializable {
 
     public String name;
 
-//    public List<GetSessionReturnDataPOJO> s;
-
 }
