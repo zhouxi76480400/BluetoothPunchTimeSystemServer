@@ -1,0 +1,253 @@
+#login{
+	width: 100%;
+	height: 28px;
+	background-color: #101010;
+}
+/*设置版心1200px*/
+.innterbox{
+	width: 1200px;
+	margin:0 auto;
+	position: relative;
+}
+#login .loginleft{
+	color: #FFFFFF;
+	line-height: 28px;
+	position: absolute;
+	left: 265px;
+}
+#login .loginright{
+	height: 28px;
+	line-height: 28px;
+	position: absolute;
+	right: 0;
+}
+
+#login .loginright{
+	color: #bfbfbf;
+}
+
+#login .loginright a{
+	color: #ff6600;
+}
+
+#login .loginright .denglu{
+	color: #bfbfbf;
+}
+.inntercenter{
+	width: 1200px;
+	margin:0 auto;
+}
+#header{
+	height: 75px;
+	position: relative;
+}
+/*logo设置*/
+#header a.logo img{
+	width: 258px;
+	height: 104px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+#header .title{
+	margin-left: 285px;
+	font: 24px "微软雅黑";
+	color: #666666;
+	line-height: 75px;
+}
+/*头部结束*/
+#box{
+	width:100%;
+	height: 500px;
+	background: url(../img/login_banner.jpg);
+	background-size: cover;
+	position: relative;
+}
+#box .loginlist{
+	width: 350px;
+	height: 370px;
+	background-color: #FFFFFF;
+	position: absolute;
+	top: 108px;
+	right: 112px;
+}
+#box .loginlist .loginwrapper{
+	width: 350px;
+	height: 55px;
+	border-bottom: 2px solid #FF6600;
+	display: inline-block;	
+	cursor: pointer;
+}
+#box .loginlist .loginwrapper span{
+	width: 168px;
+	height: 25px;
+	font: 20px "微软雅黑";
+	color: #262626;
+	text-align: center;
+	margin-top: 15px;
+	display: inline-block;
+}
+
+#box .loginlist .loginwrapper span.current{
+	color: #FF6600;
+}
+#box .loginlist .loginwrapper span.title1{
+	border-right: 1px solid #F6F6F6;
+}
+
+#box .loginlist .loginwrapper1{
+	margin-top: 50px;
+	width: 330px;
+	position: absolute;
+	left: 35px;
+	top: 35px;
+}
+#box .loginlist .loginwrapper1 .pic1{
+	padding-right: 10px;
+}
+
+#box .loginlist .loginwrapper1 .pic2{
+	padding-top: 10px;
+}
+#box .loginlist .loginwrapper1 p{
+	height: 108px;
+	width: 300px;
+	text-align: center;
+	margin-top: 30px;
+}
+
+/*账户登录*/
+#box .loginlist .loginwrapper2{
+	display: none;
+}
+
+#box .loginlist .loginform{
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 40px;
+}
+.loginform .username{
+	position: relative;
+	margin-bottom: 20px;
+}
+.loginform .username span{
+	display: inline-block;
+	width: 38px;
+	height: 38px;
+	border: 1px solid #BFBFBF;
+	border-right: none;
+}
+
+.loginform .username input{
+	width: 260px;
+	height: 38px;
+	position: absolute;
+	top: 0;
+	left: 39px;
+	outline: none;
+	border: 1px solid #BFBFBF;
+	border-left: none;
+}
+.loginform .username>img{
+	position: absolute;
+	right: 16px;
+	top: 10px;
+	cursor: pointer;
+}
+.loginform .password{
+	position: absolute;
+}
+.loginform .password span{
+	display: inline-block;
+	width: 38px;
+	height: 38px;
+	border: 1px solid #BFBFBF;
+	border-right: none;
+}
+.loginform .password input{
+	width: 260px;
+	height: 38px;
+	position: absolute;
+	top: 0px;
+	left: 39px;
+	outline: none;
+	border: 1px solid #BFBFBF;
+	border-left: none;
+}
+
+/*忘记密码*/
+.loginform .zidonglogin{
+	margin-top: 70px;
+	position: relative;
+}
+.loginform .zidonglogin span{
+	position: absolute;
+	right: 0;
+}
+.loginform .zidonglogin span a{
+	color: black;
+}
+ .loginform .loginbtn{
+	margin-top: 30px;
+}
+.loginform .loginbtn input{
+	width: 300px;
+	height:32px;
+	border:none;
+	background-color: #FF6600;
+	font: 20px "微软雅黑";
+	color: white;
+	letter-spacing: 2px;
+	cursor: pointer;
+}
+
+.loginlist p.now{
+	margin-top: 30px;
+	border-top: 1px solid #E6E6E6;
+	text-align: center;
+	height: 55px;
+	line-height: 55px;
+	font-size: 20px;
+	position: relative;
+}
+.loginlist p.now a{
+	font-size: 18px;
+	color: #FF6600;
+}
+.loginlist p.now img{
+	position: absolute;
+	left: 118px;
+	top: 20px;
+}
+/*底部*/
+.last {
+	width: 1000px;
+	margin: 0 auto;
+	border-top: 1px solid #C6C6C6;
+}
+
+.last span {
+	display: inline-block;
+	width: 117px;
+	border-right: 1px solid #C6C6C6;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.last .last1 {
+	border-right: none;
+}
+
+.last a {
+	color: black;
+	text-decoration: none;
+	font: 12px "微软雅黑";
+}
+/*底部*/
+.last .copyright {
+	margin-top: 20px;
+	margin-bottom: 50px;
+	width: 800px;
+	font: 12px "微软雅黑";
+	text-align: center;
+}

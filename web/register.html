@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Change Password</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css"/>
+		<link rel="stylesheet" type="text/css" href="css/register.css" />
+		<link rel="stylesheet" href="css/amazeui.min.css" />
+	</head>
+
+	<body>
+		<div id="username">
+			<div class="am-cf am-padding am-padding-bottom-0">
+				<div class="am-fl am-cf">
+					<strong class="am-text-primary am-text-lg">Change Password</strong>
+				</div>
+			</div>
+			<div class="titlesecond"></div>
+			<div class="logining">
+				<div>
+					<form action="#" class="form">
+						<div><span class="left">UserName</span><input type="text" name="username" class="right" placeholder="Please enter numbers and letters" /></div>
+						<div><span class="left">Email</span><input type="tel"  class="right"  placeholder="Please enter your email" /></div>
+						<div><span class="left">Password</span><input type="password" name="psw1" class="right"  placeholder="Please enter up to 8 numbers and letters"/></div>
+						<div><span class="left">Password</span><input type="password" name="psw2" class="right"   placeholder="Enter your password again" /></div>
+						<div class="submit"><input type="button" value="Register Now" /></div>
+					</form>
+				</div>
+				<div class="last">
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+	<script type="text/javascript">
+		$(".submit").click(function () {
+			window.open("login.html");
+        });
+	</script>
+</html>

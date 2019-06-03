@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Student Management</title>
+        <link rel="stylesheet" href="css/amazeui.min.css" />
+		<link rel="stylesheet" href="css/admin.css" />
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+	</head>
+	<body>
+		
+	<div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf">
+          <strong class="am-text-primary am-text-lg">Students List</strong>
+        </div>
+      </div>
+
+      <hr>
+
+      <ul id="student" class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin gallery-list">
+        <li class="studentli" data-toggle='modal' data-target="#myModal1">
+          <a href="#">
+            <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+            <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+            <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+          </a>
+        </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+          <li class="studentli" data-toggle="modal" data-target="#myModal1">
+              <a href="#">
+                  <img class="am-img-thumbnail am-img-bdrs" src="images/pr2.jpg" alt="">
+
+                  <div class="studentName">川村 一谷<strong class="studentId"> 19040909</strong></div>
+                  <div class="bluetooth"> fakjk:nfnajnfj:dkaj</div>
+              </a>
+          </li>
+      </ul>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit</h4>
+                    </div>
+                    <div class="modal-body">
+                        <nav>
+                        <div class="form-group" style="display: none">
+                            <label for="txt_departmentid" class="control-label"></label>
+                            <input type="text" name="txt_departmentid" class="form-control" id="txt_departmentid" placeholder="Student Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_departmentname" class="control-label">First Name</label>
+                            <input type="text" name="txt_departmentname" class="form-control" id="txt_departmentname" placeholder="Student Name">
+                        </div>
+                            <div class="form-group">
+                                <label for="txt_lastname" class="control-label">Last Name</label>
+                                <input type="text" name="txt_lastname" class="form-control" id="txt_lastname" placeholder="Student Name">
+                            </div>
+                        <div class="form-group">
+                            <label for="txt_parentdepartment" class="control-label">Student ID</label>
+                            <input type="text" name="txt_parentdepartment" class="form-control" id="txt_parentdepartment" placeholder="Student ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_departmentlevel" class="control-label">Bluetooth</label>
+                            <input type="text" name="txt_departmentlevel" class="form-control" id="txt_departmentlevel" placeholder="Bluetooth">
+                        </div>
+                        </nav>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn_del" class="btn btn-default" data-dismiss="modal">Delete</button>
+                        <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+	</body>
+    <script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $.ajax({
+                crossDomain: true,
+                url:'getusr?c=30',
+                // data:senddata,
+                type: "POST",
+                dataType: "json",
+                // contentType: "json",
+                xhrFields:{},
+                //  traditional:true,
+               async:false,
+                success:function(data){
+                    console.log(data);
+                    $(".gallery-list").html("");
+                    for( var i=0;i<data.data.length; i++){
+                        $(".gallery-list").html( $(".gallery-list").html() + "<li class='studentli' data-toggle='modal' data-target='#myModal' id="+data.data[i].id+">\n" +
+                            "<a href='#'>\n" + "<img class='am-img-thumbnail am-img-bdrs' src='images/pr2.jpg' alt=''>\n" +
+                            "\n" + "<div class='studentName'>"+data.data[i].first_name+"&nbsp;"+""+data.data[i].last_name+"<strong class='studentId'> "+data.data[i].student_number+"</strong></div>\n" +
+                            "<div class='bluetooth'>"+data.data[i].mac_address+"</div>\n" +
+                            "</a>\n" + "</li>"
+                        )
+                    }
+                },
+
+            });
+
+            $("#student").on('click',".studentli",function(){
+                var sendid = this.getAttribute('id');
+                console.log(sendid);
+                clickid(sendid);
+            });
+
+            function clickid(sendid) {
+
+                $.ajax({
+                    crossDomain: true,
+                    url:'getusr?c=30',
+                    // data:senddata,
+                    type: "POST",
+                    dataType: "json",
+                    xhrFields:{},
+                    success:function(data){
+                        console.log(data);
+                        $("#myModalLabel").text("Edit");
+                        $('#myModal').modal('show');
+                        for (var i=0; i<data.data.length; i++){
+                            if (data.data[i].id == sendid){
+                                $('#txt_departmentid').val(data.data[i].id);
+                                $('#txt_departmentname').val(data.data[i].first_name);
+                                $('#txt_lastname').val(data.data[i].last_name);
+                                $('#txt_parentdepartment').val(data.data[i].student_number);
+                                $('#txt_departmentlevel').val(data.data[i].mac_address);
+                            }
+                        } 
+
+                    }
+                });
+
+
+            }
+
+            $("#btn_del").click(function () {
+                var l = [];
+                l[0]=$('#txt_departmentid').val();
+                console.log(l)
+                $.ajax({
+                    crossDomain: true,
+                    url:'removeusrs?',
+                    data:"l="+JSON.stringify(l),
+                    type: "POST",
+                    dataType: "json",
+                    // contentType: "json",
+                    xhrFields:{},
+                    success:function(data){
+                        console.log(data);
+                        if(data.s === "0"){
+                            alert("Delete Success.")
+                        }else{
+                            alert("Delete Fail")
+                        }
+                    }
+                });
+            });
+
+
+            $("#btn_submit").click(function () {
+                var modify = {
+                   id:parseInt($('#txt_departmentid').val()),
+                   first_name: $('#txt_departmentname').val(),
+                   last_name: $('#txt_lastname').val(),
+                   student_number: $('#txt_parentdepartment').val(),
+                   mac_address:$('#txt_departmentlevel').val()
+                }
+                $.ajax({
+                    crossDomain: true,
+                    url:'addusr?',
+                    data:"e=true&d="+JSON.stringify(modify),
+                    type: "POST",
+                    dataType: "json",
+                    xhrFields:{},
+                    success:function(data){
+                        console.log(data);
+                        if(data.s === "0"){
+                            alert("Modify Success.");
+                            location.reload();
+                        }else if(data.s ==="4"){
+                            alert("Duplicate Bluetooth.");
+                        }else {
+                            alert("Modify Fail");
+                        }
+                    }
+                });
+            })
+
+
+        });
+
+
+
+    </script>
+</html>

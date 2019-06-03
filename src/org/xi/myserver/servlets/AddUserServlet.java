@@ -31,6 +31,7 @@ public class AddUserServlet extends MyServlet {
 
     private void handle(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String[]> parameterMap = request.getParameterMap();
+        System.out.println(parameterMap.toString());
         Map<String,String> map = new HashMap<>();
         map.put("s",String.valueOf(StatusCodeList.STATUS_CODE_PARAMETER_NOT_EQUALS));
         if(parameterMap.size() == 2) {
@@ -41,6 +42,8 @@ public class AddUserServlet extends MyServlet {
                 e.printStackTrace();
             }
             String json = CharsetUtil.getUTF_8String(request.getParameter("d"));
+            System.out.println(request.getParameter("d"));
+            System.out.println(json);
             StudentInformationObject object = null;
             if(json != null && json.length() != 0) {
                 Gson gson = new Gson();
@@ -53,7 +56,7 @@ public class AddUserServlet extends MyServlet {
                     if(isEdit) {
                         long id = object.id;
                         if(id > 0) {
-                            modifyData(map,response,object);
+                            modifyData(map,object);
                         }else {
                             map.put("s", String.valueOf(StatusCodeList.
                                     STATUS_CODE_SQL_ID_NOT_EXIST));
@@ -114,10 +117,9 @@ public class AddUserServlet extends MyServlet {
 
     /**
      * Modify Exists Data
-     * @param response
      * @param object
      */
-    private void modifyData(Map<String, String> map, HttpServletResponse response, StudentInformationObject object) {
+    private void modifyData(Map<String, String> map, StudentInformationObject object) {
         if(object != null) {
             SQLReturnDataClass sqlReturnDataClass = SqlUtiClass.modifyUserToDB(object);
             if(sqlReturnDataClass.DB_ERR_CODE == SQLStatusCODEList.DB_OK) {

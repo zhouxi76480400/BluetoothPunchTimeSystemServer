@@ -13,7 +13,6 @@
         <url-pattern>/getusr</url-pattern>
     </servlet-mapping>
     
-    
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>org.xi.myserver.servlets.AddUserServlet</servlet-class>
@@ -83,7 +82,6 @@
         <servlet-name>GetSessionInformationServlet</servlet-name>
         <url-pattern>/gi</url-pattern>
     </servlet-mapping>
-
 
     <resource-ref>
         <description>DB Connection</description>
